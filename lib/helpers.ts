@@ -1,3 +1,5 @@
+import { siteConfig, SiteConfig } from "./site-config";
+
 export const throttle = (
   func: (...args: unknown[]) => void,
   limit: number,
@@ -45,12 +47,8 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 
 export function toAbsoluteUrl(pathname: string): string {
   //get current base path from the window object
-  const basePath = window.location.origin;
+  const basePath = siteConfig.url;
   console.log("basePath", basePath);
 
-  if (basePath && basePath !== "/") {
-    return basePath + pathname;
-  } else {
-    return pathname;
-  }
+  return basePath + pathname;
 }
