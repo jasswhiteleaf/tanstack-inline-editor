@@ -55,6 +55,7 @@ import {
   RotateCcwIcon,
   TriangleAlertIcon,
 } from "lucide-react";
+import { Spinner } from "@/ui/spinner";
 
 type Role = "Product Designer" | "Frontend Engineer" | "Engineering Manager";
 type WorkMode = "Onsite" | "Hybrid" | "Remote";
@@ -567,7 +568,12 @@ export function PatternEdit2() {
               Async Editing Sandbox
             </span>
             <Badge variant="outline">Optimistic API</Badge>
-            {isGridPending ? <Badge variant="outline">Saving row</Badge> : null}
+            {isGridPending ? (
+              <Badge variant="outline">
+                <Spinner className="size-3" />
+                Saving row
+              </Badge>
+            ) : null}
             {failNextSave ? (
               <Badge variant="destructive">Fail next save</Badge>
             ) : null}

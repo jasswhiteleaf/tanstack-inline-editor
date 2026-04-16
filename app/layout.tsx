@@ -1,31 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "TanStack Table Inline Edit Example",
-  description: "A simple example of inline editing with TanStack Table.",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+  title: {
+    default: "TanStack Inline Editor Demo",
+    template: "%s | TanStack Inline Editor Demo",
   },
+  description:
+    "A polished demo for TanStack Table inline editing and Base UI command patterns, with install-ready components available on Base UI CN.",
+  applicationName: "TanStack Inline Editor Demo",
+  keywords: "TanStack Table, inline editing, Base UI, command palette, Next.js demo, data grid",
+  category: "technology",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "TanStack Inline Editor Demo",
+    description:
+      "Explore polished inline-editing and command palette demos built with TanStack Table and Base UI patterns.",
+    siteName: "TanStack Inline Editor Demo",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TanStack Inline Editor Demo",
+    description:
+      "Preview Base UI-inspired demos for inline editing, command menus, and install-ready component workflows.",
+  },
+  icons: "/icon.svg",
 };
 
 export default function RootLayout({
@@ -37,7 +40,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased">
         {children}
-        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
   );

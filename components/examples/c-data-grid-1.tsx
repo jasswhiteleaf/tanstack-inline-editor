@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useMemo, useState } from "react"
-import { Badge } from "@/components/reui/badge"
+import { useMemo, useState } from "react";
+import { Badge } from "@/components/reui/badge";
 import {
   DataGrid,
   DataGridContainer,
-} from "@/components/reui/data-grid/data-grid"
-import { DataGridColumnHeader } from "@/components/reui/data-grid/data-grid-column-header"
-import { DataGridPagination } from "@/components/reui/data-grid/data-grid-pagination"
-import { DataGridScrollArea } from "@/components/reui/data-grid/data-grid-scroll-area"
-import { DataGridTable } from "@/components/reui/data-grid/data-grid-table"
+} from "@/components/reui/data-grid/data-grid";
+import { DataGridColumnHeader } from "@/components/reui/data-grid/data-grid-column-header";
+import { DataGridPagination } from "@/components/reui/data-grid/data-grid-pagination";
+import { DataGridScrollArea } from "@/components/reui/data-grid/data-grid-scroll-area";
+import { DataGridTable } from "@/components/reui/data-grid/data-grid-table";
 import {
   ColumnDef,
   getCoreRowModel,
@@ -19,27 +19,36 @@ import {
   PaginationState,
   SortingState,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DataGridTableDndRows,
+  DataGridTableDndRowHandle,
+} from "../reui/data-grid/data-grid-table-dnd-rows";
+import { DragEndEvent, UniqueIdentifier } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 
 interface IData {
-  id: string
-  name: string
-  availability: "online" | "away" | "busy" | "offline"
-  avatar: string
-  status: "active" | "inactive"
-  flag: string // Emoji flags
-  email: string
-  company: string
-  role: string
-  joined: string
-  location: string
-  balance: number
+  id: string;
+  name: string;
+  availability: "online" | "away" | "busy" | "offline";
+  avatar: string;
+  status: "active" | "inactive";
+  flag: string; // Emoji flags
+  email: string;
+  company: string;
+  role: string;
+  joined: string;
+  location: string;
+  balance: number;
 }
 
 const demoData: IData[] = [
@@ -223,25 +232,56 @@ const demoData: IData[] = [
     location: "India",
     balance: 4521.67,
   },
-]
+];
 
 export function Pattern() {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 5,
-  })
+  });
   const [sorting, setSorting] = useState<SortingState>([
     { id: "name", desc: true },
-  ])
+  ]);
+
+  const [data, setData] = useState(demoData);
+  const dataIds = useMemo<UniqueIdentifier[]>(
+    () => data?.map(({ id }) => id),
+    [data],
+  );
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active && over && active.id !== over.id) {
+      setData((data) => {
+        const oldIndex = dataIds.indexOf(active.id);
+        const newIndex = dataIds.indexOf(over.id);
+        return arrayMove(data, oldIndex, newIndex);
+      });
+    }
+  };
 
   const columns = useMemo<ColumnDef<IData>[]>(
     () => [
       {
+        id: "drag",
+        cell: () => <DataGridTableDndRowHandle />,
+        size: 30,
+        meta: { cellClassName: "px-4 py-2" },
+      },
+      {
         accessorKey: "name",
         id: "name",
         header: ({ column }) => (
-          <DataGridColumnHeader title="Staff" column={column} />
+          <DataGridColumnHeader
+            title="Staff"
+            column={column}
+            className="px-4 py-2"
+          />
         ),
+        size: 400,
+        enablePinning: true,
+        enableResizing: true,
+        enableSorting: true,
+        enableHiding: false,
         cell: ({ row }) => {
           return (
             <div className="flex items-center gap-3">
@@ -266,11 +306,11 @@ export function Pattern() {
                 </div>
               </div>
             </div>
-          )
+          );
         },
-        size: 400,
-        enableSorting: true,
-        enableHiding: false,
+        meta: {
+          cellClassName: "px-4 py-2",
+        },
       },
       {
         accessorKey: "role",
@@ -288,11 +328,16 @@ export function Pattern() {
                 {row.original.company}
               </div>
             </div>
-          )
+          );
         },
         size: 400,
+        enablePinning: true,
+        enableResizing: true,
         enableSorting: true,
         enableHiding: false,
+        meta: {
+          cellClassName: "px-4 py-2",
+        },
       },
       {
         accessorKey: "status",
@@ -301,20 +346,23 @@ export function Pattern() {
           <DataGridColumnHeader title="Status" column={column} />
         ),
         cell: ({ row }) => {
-          const status = row.original.status
+          const status = row.original.status;
 
           if (status == "active") {
-            return <Badge variant="success-outline">Approved</Badge>
+            return <Badge variant="success-outline">Approved</Badge>;
           } else {
-            return <Badge variant="warning-outline">Pending</Badge>
+            return <Badge variant="warning-outline">Pending</Badge>;
           }
         },
         size: 200,
         enableResizing: false,
+        meta: {
+          cellClassName: "px-4 py-2",
+        },
       },
     ],
-    []
-  )
+    [],
+  );
 
   const table = useReactTable({
     columns,
@@ -332,22 +380,44 @@ export function Pattern() {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-  })
+  });
 
   return (
     <DataGrid
       table={table}
       recordCount={demoData?.length || 0}
-      tableLayout={{ columnsResizable: true }}
+      tableLayout={{
+        columnsResizable: true,
+        columnsDraggable: true,
+        columnsPinnable: true,
+        columnsMovable: true,
+        rowsDraggable: true,
+        width: "auto",
+      }}
     >
-      <div className="w-full space-y-2.5">
-        <DataGridContainer>
-          <DataGridScrollArea>
-            <DataGridTable />
+      <Card className="w-full gap-0 p-0">
+        <CardHeader className="flex items-center justify-between gap-3 px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="text-foreground text-sm font-medium">
+              Basic Data Grid
+            </span>
+            <Badge variant="primary-outline" size="sm">
+              Sorting, pagination, resizable columns, and drag-and-drop rows
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="border-y p-0">
+          <DataGridScrollArea className="h-[460px]">
+            <DataGridTableDndRows
+              handleDragEnd={handleDragEnd}
+              dataIds={dataIds}
+            />
           </DataGridScrollArea>
-        </DataGridContainer>
-        <DataGridPagination />
-      </div>
+        </CardContent>
+        <CardFooter className="border-none bg-transparent! px-4 py-3">
+          <DataGridPagination />
+        </CardFooter>
+      </Card>
     </DataGrid>
-  )
+  );
 }
