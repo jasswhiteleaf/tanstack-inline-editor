@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Command Palette Demo",
+  title: "Base UI CN Command Palette Demo",
   description:
-    "A focused command palette demo page with keyboard-first interactions and an install CTA for Base UI CN components.",
+    "A Base UI CN command palette demo with keyboard-first navigation, grouped results, and an assistant-style mode.",
   openGraph: {
-    title: "Command Palette Demo",
+    title: "Base UI CN Command Palette Demo",
     description:
-      "Preview a polished command palette interaction built for a small demo app and route visitors to Base UI CN for components.",
+      "Preview the Base UI CN command component with keyboard navigation, grouped commands, and an assistant branch.",
   },
 };
 
@@ -36,17 +36,17 @@ export default function Page() {
               className="border-sky-200 bg-white/70 text-sky-900"
               variant="outline"
             >
-              AI Command Demo
+              baseui-cn Command Demo
             </Badge>
             <div className="space-y-3">
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-                A dedicated command palette page that feels more like a product
-                preview.
+              <h1 className="max-w-4xl text-3xl font-semibold tracking-tight text-balance lg:text-4xl">
+                A command palette demo built to show the interaction, not just
+                the shell around it.
               </h1>
               <p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
-                This route now works as a cleaner second stop in the demo. It
-                keeps attention on the command interaction, while the sticky top
-                CTA still points users to Base UI CN to grab the components.
+                This route keeps the focus on the command experience itself:
+                grouped results, keyboard navigation, shortcut hints, and the
+                assistant-style branch that can be toggled from the same dialog.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -70,7 +70,7 @@ export default function Page() {
                 }
                 size="lg"
               >
-                Get the Components
+                Install from baseui-cn
                 <ArrowUpRightIcon className="size-4" />
               </Button>
             </div>
@@ -89,18 +89,20 @@ export default function Page() {
                   className="border-emerald-200 bg-emerald-50 text-emerald-900"
                   variant="outline"
                 >
-                  Search + AI branch
+                  Grouped commands
                 </Badge>
                 <Badge
                   className="border-slate-200 bg-slate-50 text-slate-900"
                   variant="outline"
                 >
-                  Demo ready
+                  Assistant handoff
                 </Badge>
               </div>
-              <CardTitle className="text-2xl">Command menu preview</CardTitle>
+              <CardTitle className="text-2xl">
+                Command palette interaction
+              </CardTitle>
               <CardDescription className="max-w-3xl text-sm leading-6">
-                Open the dialog to try the normal command flow, then press{" "}
+                Open the dialog to try the standard command flow, then press{" "}
                 <span className="font-medium text-foreground">Tab</span> or use
                 the AI action to switch into the assistant-style state.
               </CardDescription>
@@ -108,11 +110,11 @@ export default function Page() {
             <CardContent className="flex min-h-[420px] flex-col items-center justify-center gap-6 px-6 py-12 text-center">
               <div className="space-y-2">
                 <SparklesIcon className="mx-auto size-6 text-amber-700" />
-                <p className="text-lg font-semibold">Try the command dialog</p>
+                <p className="text-lg font-semibold">Try the command palette</p>
                 <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-                  This is still the same interactive example, now framed with
-                  better spacing, context, and navigation so it works as part of
-                  the overall demo experience.
+                  The example keeps the component front and center, so it is
+                  easier to evaluate the search behavior, command grouping, and
+                  AI branch without unrelated page content getting in the way.
                 </p>
               </div>
               <CCommand1 />

@@ -21,13 +21,13 @@ import {
 } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Grid Demos",
+  title: "TanStack Table Grid Demos",
   description:
-    "A dedicated grid demo page showing the full progression from a basic data grid to inline editing and advanced optimistic updates.",
+    "Compare three TanStack Table demos built with Base UI CN: a basic grid, an inline editor, and an optimistic async editing flow.",
   openGraph: {
-    title: "TanStack Grid Demos",
+    title: "TanStack Table Grid Demos",
     description:
-      "Compare Basic, Inline, and Advanced Inline grid demos with generated editors, loading states, and optimistic updates.",
+      "See how the Base UI CN table patterns progress from a simple grid to inline editing and async optimistic updates.",
   },
 };
 
@@ -43,16 +43,17 @@ export default function GridPage() {
               className="border-amber-200 bg-white/70 text-amber-900"
               variant="outline"
             >
-              Inline Editor Grid
+              TanStack Table Demos
             </Badge>
             <div className="space-y-3">
-              <h1 className="max-w-5xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-                Basic, Inline, and Advanced Inline grid demos in one place.
+              <h1 className="max-w-5xl text-4xl font-semibold tracking-tight text-balance text-3xl lg:text-4xl">
+                Basic, inline, and optimistic editing demos in one place.
               </h1>
               <p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
-                This page shows the full progression. Start with the basic grid,
-                move into inline editing with auto-generated dialog fields, then
-                finish with loading states and optimistic updates.
+                This page shows the full progression of the table examples. It
+                starts with a simpler data grid, moves into inline editing with
+                generated dialog fields, and finishes with async saves,
+                optimistic UI, and rollback behavior.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -71,7 +72,7 @@ export default function GridPage() {
                 size="lg"
                 variant="outline"
               >
-                Open command demo
+                Open command palette
                 <ArrowRightIcon className="size-4" />
               </Button>
             </div>
@@ -81,19 +82,19 @@ export default function GridPage() {
             <Card className="border-white/70 bg-white/75 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.45)] backdrop-blur-sm">
               <CardHeader className="gap-3">
                 <Rows3Icon className="size-5 text-amber-700" />
-                <CardTitle className="text-base">Basic</CardTitle>
+                <CardTitle className="text-base">Basic grid</CardTitle>
                 <CardDescription>
-                  A clean table foundation with sorting, pagination, and a
-                  lighter read-only presentation.
+                  The lighter starting point with the core table structure,
+                  sorting, pagination, and a cleaner read-only presentation.
                 </CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-white/70 bg-white/75 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.45)] backdrop-blur-sm">
               <CardHeader className="gap-3">
                 <Layers3Icon className="size-5 text-sky-700" />
-                <CardTitle className="text-base">Inline</CardTitle>
+                <CardTitle className="text-base">Inline editor</CardTitle>
                 <CardDescription>
-                  The same grid becomes editable inline and can generate a
+                  The same table becomes editable inline and can generate a
                   matching dialog editor from column metadata.
                 </CardDescription>
               </CardHeader>
@@ -101,10 +102,12 @@ export default function GridPage() {
             <Card className="border-white/70 bg-white/75 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.45)] backdrop-blur-sm">
               <CardHeader className="gap-3">
                 <Layers3Icon className="size-5 text-emerald-700" />
-                <CardTitle className="text-base">Advanced Inline</CardTitle>
+                <CardTitle className="text-base">
+                  Optimistic async flow
+                </CardTitle>
                 <CardDescription>
-                  Adds loading states, optimistic UI, rollback behavior, and a
-                  more production-like async editing flow.
+                  Adds loading states, optimistic saves, and rollback behavior
+                  to show how the pattern works in a more production-like flow.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -125,7 +128,7 @@ export default function GridPage() {
               <CardTitle className="text-xl">Basic data grid</CardTitle>
               <CardDescription>
                 This is `c-data-grid-1`: the simpler starting point before
-                editing behaviors are introduced.
+                inline editing behavior is introduced.
               </CardDescription>
             </CardHeader>
             <CardContent className="px-2 pb-2 sm:px-4">
